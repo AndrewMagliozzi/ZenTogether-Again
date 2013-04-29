@@ -1,41 +1,64 @@
 <head>
   <title>ZenTogether</title>
-  <script src="headtrackr.js"></script>
-  <script type="text/javascript" src="client/listeners.js"></script>
+  <meta property="og:image" src="/images/favicon.png">
+  <link rel="icon" src="/images/favicon.png" type="image/png">
+  <link rel="icon" src="/images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-<h1>Meditation Timer</h1>
 
-<div class='contain'>
-	<canvas id="inputCanvas" width="320" height="240" style="display:inline-block"></canvas>
-	<video id="inputVideo" autoplay loop></video>
-</div>
+  {{> totalPeace}}
+	{{> mainBox}}
+	{{> headTrackr}}
+  {{> footer}}
 
-  {{> timer}}
-
-<audio src="/bell.ogg" >
-<p>Your browser does not support the audio element </p>
-</audio>
-
-<script type='text/javascript'>
-  var videoInput = document.getElementById('inputVideo');
-  var canvasInput = document.getElementById('inputCanvas');
-
-  var htracker = new headtrackr.Tracker();
-  htracker.init(videoInput, canvasInput);
-  htracker.start();
-</script>
+  <audio src="/bell.ogg" >
+    <p>Your browser does not support the audio element.</p>
+  </audio>
 
 </body>
 
-<template name="timer">
-  <h3 class='counter'> {{count}}</h3>
-  <input type="button" class='button' value="start" data-time='10' />
-  <input type='button' class='button' value='2 minutes' data-time='120' />
-  <!-- TODO: set below two buttons to display only to logged in users -->
-  <input type='button' class='button' value='4 minutes' data-time='240'/>
-  <input type='button' class='button' value='8 minutes' data-time='480'/>
-
+<template name='totalPeace'>
+  <div class="box brown marginFix">
+      <img src="/images/fleuron-small-gray.png" alt="" class="divider">
+      {{#with minutesOfPeace}}
+      <h3 style='margin-top:-5px'>{{minutes}}<small>minutes of peace to date</small></h3>
+      {{/with}}
+  </div>
 </template>
 
+<template name='mainBox'>
+  <div class="box initial" style="height: 266px; padding:30px 0 0;">
+        <img src="/images/logo.png" alt="ZenTogether" id="logo">
+        <div style=" text-align:center; margin-left:auto; margin-right:auto;">
+          {{> timer}}
+        </div><br><br>
+    </div>
+</template>
+
+<template name="timer" class="box">
+  <h3 class='counter'> {{count}} <br><br><br></h3>
+  {{> buttonBlock}}
+</template>
+
+<template name='buttonBlock'>
+  <div class='buttons'>
+    <input type="button" class='button btn btn-brown btn-8' value="test" data-time='10' />
+    <input type='button' class='button btn btn-brown btn-8' value='2 minutes' data-time='120' />
+    <!-- TODO: set below two buttons to display only to logged in users -->
+    <input type='button' class='button btn btn-brown btn-8' value='4 minutes' data-time='240'/>
+    <input type='button' class='button btn btn-brown btn-8' value='8 minutes' data-time='480'/>
+    <div class='bar'></div>
+  </div>
+</template>
+
+<template name='headTrackr'>
+	<div class='contain'>
+		<canvas id="inputCanvas" width="320" height="240" style="display:none"></canvas>
+		<video id="inputVideo" loop style='display:none'></video>
+	</div>
+</template>
+
+<template name='footer'>
+
+</template>
