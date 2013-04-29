@@ -7,14 +7,20 @@
 
 <body>
 
-  {{> totalPeace}}
-	{{> mainBox}}
-	{{> headTrackr}}
-  {{> footer}}
+  <div id='wrapper'>
+    {{> totalPeace}}
+  	{{> mainBox}}
+  	{{> headTrackr}}
 
-  <audio src="/bell.ogg" >
-    <p>Your browser does not support the audio element.</p>
-  </audio>
+    <audio class='bell' src="/bell.ogg" >
+      <p>Your browser does not support the audio element.</p>
+    </audio>
+
+    <audio class='waves' src='/waves.ogg' loop >
+      <p>Your browser does not support the audio element.</p>
+    </audio>
+    {{> footer}}
+  </div>
 
 </body>
 
@@ -60,5 +66,8 @@
 </template>
 
 <template name='footer'>
-
+  <div id="footer">
+    <input class='waveButton' type='checkbox' >Hear the waves</input> | 
+    <input class='reminder' type='checkbox' checked='true' >Remind me to mediate every couple of hours</input>
+  </div>
 </template>

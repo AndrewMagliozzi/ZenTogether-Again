@@ -10,7 +10,7 @@ Template.headTrackr.rendered = function (){
     function (event) {
       if (event.status === 'getUserMedia') {
         welcome('Welcome to ZenTogether. <br/>Please allow use of your camera and find stillness.');
-        $('<img class="svg arrow" src="/images/arrow.svg" />').appendTo('body')
+        $('<img class="svg arrow" src="./images/arrow.svg" />').appendTo('body')
           .fadeIn('slow', toggleArrow);
       }
       if (event.status === 'no camera') {
@@ -51,7 +51,6 @@ Template.headTrackr.rendered = function (){
 
   document.addEventListener('facetrackingEvent', function(event){
     if (Meteor.counting === true) {
-      var intensity = arr.length * 50;
       var lastVal = arr[arr.length - 1];
       var temp = event.x;
 
@@ -60,13 +59,13 @@ Template.headTrackr.rendered = function (){
       } else if (arr.length > 1) {
         arr.pop();
       }
-      if (arr.length > 3 && arr.length < 6) {
+      if (arr.length > (difficulty / 2) && arr.length < difficulty) {
         welcome('"Stillness reveals the secrets of eternity.” ~ Lao Tzu<br>')
       }
       if (arr.length > 1 && temp <= lastVal + 1 && temp >= lastVal - 1) {
         arr[arr.length - 1] = temp;
       }
-      if (arr.length === 6) {
+      if (arr.length === difficulty) {
         Meteor.stopTimer();
         arr = [];
       }

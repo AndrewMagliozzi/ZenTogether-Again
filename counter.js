@@ -7,13 +7,17 @@ if (Meteor.isClient) {
   $(document).ready(function() {
 
     var timeLeft = function() {
+      if ($('.waveButton').is(':checked')){
+        $('.waves')[0].play();
+      } 
       if (clock > 0){
         clock--;
         clock % 60 > 9 ? time = Math.floor(clock / 60) + ':' + (clock % 60) : time = Math.floor(clock / 60) + ':0' + (clock % 60)
         Session.set('count', time);
         Meteor.counting = true;
       } else {
-        $('audio')[0].play();
+        $('.waves')[0].pause();
+        $('.bell')[0].play();
         Meteor.clearInterval(Meteor.clearID);
         Meteor.counting = false;
         $('.counter').fadeTo('slow', 0, function(){
@@ -40,6 +44,7 @@ if (Meteor.isClient) {
       var $el = $('.counter');
       Meteor.clearInterval(Meteor.clearID);
       var n = parseInt($el.text(), 10);
+      $('.waves')[0].pause();
       if( !$el.data('animating') && Meteor.counting){
         Meteor.counting = false;
         $el.data('animating', true);
@@ -65,6 +70,12 @@ if (Meteor.isClient) {
     $(document).on('keypress', Meteor.stopTimer);
 
     $(document).on('mousemove', Meteor.stopTimer);
+
+    if ($('.reminder').is(':checked')){
+      setInterval(function(){ 
+      return alert("You deserve a break.  How about a moment of zen?");
+      }, 7200000);
+    };
 
   });
 
