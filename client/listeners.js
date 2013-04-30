@@ -1,16 +1,31 @@
 
+// Meteor's reactive templating requires we wait for the headTrackr template to render
+// before we call any of the functions below.
 Template.headTrackr.rendered = function (){
 
-  var arr = [];
-  var toggleArrow = function(){
+  var arr = [];  // an array that grows and shrinks with the frequency and amplitude of user movement
+
+//reminder period selected by the user
+var duration = $('.reminderDuration').val() * 1000 * 60;
+
+// logic to remind users to meditate periodically
+  if ( $('.reminder').is(':checked') ) {
+    setInterval(function(){ 
+      alert("You deserve a break.  How about a moment of zen?");
+    }, duration );
+  };
+
+  var toggleArrow = function(){ // the arrow that beckons the user to permit use of their camera
     $('.arrow').fadeToggle('slow', toggleArrow);
   };
 
+// a series of messages to appear in the main div 
   document.addEventListener('headtrackrStatus', 
     function (event) {
       if (event.status === 'getUserMedia') {
         welcome('Welcome to ZenTogether. <br/>Please allow use of your camera and find stillness.');
         $('<img class="svg arrow" src="./images/arrow.svg" />').appendTo('body')
+          .animate({ top: 0 }, 2000)
           .fadeIn('slow', toggleArrow);
       }
       if (event.status === 'no camera') {
@@ -23,34 +38,32 @@ Template.headTrackr.rendered = function (){
     }
   );
 
+// writes a generic welcome message to the main div
   var welcome = function(message){
     var $el = $('.counter');
     $el.html('<h3>' + message + '</h3>').fadeIn();
   };
 
-  var videoInput = document.getElementById('inputVideo');
-  var canvasInput = document.getElementById('inputCanvas');
+// initiating the head tracker
+  var headTrackrInit = function () {
+    var videoInput = document.getElementById('inputVideo');
+    var canvasInput = document.getElementById('inputCanvas');
 
-  htracker = new headtrackr.Tracker({detectionInterval : 300});
-  htracker.init(videoInput, canvasInput);
-  htracker.start();
+    htracker = new headtrackr.Tracker({detectionInterval : 300});
+    htracker.init(videoInput, canvasInput);
+    htracker.start();
 
-   // create a new tracker
-   var ft = new headtrackr.facetrackr.Tracker();
-   // initialize it with a canvas
-   ft.init(canvasInput);
-   // track in canvas
-   ft.track();
-   // get position of found object
-   var currentPos = ft.getTrackingObject();
+    var ft = new headtrackr.facetrackr.Tracker();
+    ft.init(canvasInput);
+    ft.track();
+    var currentPos = ft.getTrackingObject();
+  };
+
+  headTrackrInit(); // calling the function above
  
-  document.addEventListener('headtrackrStatus', function(event){
-    console.log('head status', event.status);
-    // if event.status === 'found' then the face is found
-  });
-
+// a series of procedures to measure the frequency and amplitude of user movement
   document.addEventListener('facetrackingEvent', function(event){
-    var difficulty = parseInt($('.difficulty').val());
+    var difficulty = parseInt($('.difficulty').val()); // a variable defined by the user
     if (Meteor.counting === true) {
       var lastVal = arr[arr.length - 1];
       var temp = event.x;
@@ -72,6 +85,6 @@ Template.headTrackr.rendered = function (){
       }
     }
 
-  })
+  });
 
 }

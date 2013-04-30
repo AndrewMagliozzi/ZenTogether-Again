@@ -68,12 +68,19 @@
 
 <template name='footer'>
   <div id="footer">
-    <input class='waveButton' type='checkbox' >Hear the waves</input> | 
-    <input class='reminder' type='checkbox' checked='true' >Remind me to mediate every couple of hours</input>
     <select class='difficulty'>
       <option value="6">Novice</option>
       <option value="4">Monk</option>
       <option value="2">Zen Master</option>
-    </select>
+    </select> | 
+    <input class='waveButton' type='checkbox' >Hear the waves</input> | 
+    <input class='reminder' type='checkbox' checked='true' >
+      Remind me to mediate every
+      <select class='reminderDuration'>
+        <option value="30">30 minutes</option>
+        <option value="60">1 hour</option>
+        <option value="120">2 hours</option>
+      </select>
+    </input> 
   </div>
 </template>

@@ -1,4 +1,5 @@
-minutesOfPeace = new Meteor.Collection('minutesOfPeace');
+minutesOfPeace = new Meteor.Collection('minutesOfPeace'); // collection of total meditation time
+
 var clock;
 var time;
 
@@ -6,6 +7,7 @@ if (Meteor.isClient) {
 
   $(document).ready(function() {
 
+// the primary mechanism for our meditation timer
     var timeLeft = function() {
       if ($('.waveButton').is(':checked')){
         $('.waves')[0].play();
@@ -32,14 +34,17 @@ if (Meteor.isClient) {
       }
     };
 
+// the function that calls our meditation timer once per second until it reaches zero and the interval is cleared
     var interval = function(){
       Meteor.clearID = Meteor.setInterval(timeLeft, 1000);
     };
 
+// renders the time to our template
     Template.timer.count = function () {
       return Session.get('count');
     };
 
+// this is the function that stops our timer... it gets called by certain mouse, keyboard, and movement events
     Meteor.stopTimer = function(){
       var $el = $('.counter');
       Meteor.clearInterval(Meteor.clearID);
@@ -55,10 +60,12 @@ if (Meteor.isClient) {
       }
     };
 
+// renders the total meditation time to our template
     Template.totalPeace.minutesOfPeace = function(){
       return minutesOfPeace.findOne();
     }
 
+// click listener that pulls the time value from our buttons
     Template.timer.events({
       'click .button' : function (e) {
         clock = parseInt($(e.target).data().time);
@@ -67,18 +74,12 @@ if (Meteor.isClient) {
       }
     });
 
+// event listeners
     $(document).on('keypress', Meteor.stopTimer);
 
     $(document).on('mousemove', Meteor.stopTimer);
 
-    if ($('.reminder').is(':checked')){
-      setInterval(function(){ 
-      return alert("You deserve a break.  How about a moment of zen?");
-      }, 7200000);
-    };
-
   });
-
 
 }
 
