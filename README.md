@@ -1,7 +1,7 @@
-KarmaNotes
+ZenTogether
 =========
 
-KarmaNotes is a simple web app for people who spend lots of time in front of a computer screen.  This application is designed to help you unplug and enjoy a moment of zen.
+ZenTogether is a simple web app for people who spend lots of time in front of a computer screen.  This application is designed to help you unplug and enjoy a moment of zen.
 
 Version
 -
@@ -12,7 +12,7 @@ see the previous python version [here](http://github.com/21tag/zentogether)
 Tech
 -----------
 
-KarmaNotes uses the following technologies:
+ZenTogether uses the following technologies:
 
 * [Meteor.js] - reactive javascript framework that uses handlebars and mongoDB
 * [Headtrackr] - cool javascript library for motion detection
