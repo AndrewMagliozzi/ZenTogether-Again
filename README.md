@@ -1,7 +1,7 @@
 ZenTogether
 =========
 
-ZenTogether is a simple web app for people who spend lots of time in front of a computer screen.  This application is designed to help you unplug and enjoy a moment of zen.
+[ZenTogether](http://www.zentogether.com) is a simple web app for people who spend lots of time in front of a computer screen.  This application is designed to help you unplug and enjoy a moment of zen.
 
 Version
 -
