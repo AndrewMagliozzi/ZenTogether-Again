@@ -50,6 +50,7 @@ Template.headTrackr.rendered = function (){
   });
 
   document.addEventListener('facetrackingEvent', function(event){
+    var difficulty = parseInt($('.difficulty').val());
     if (Meteor.counting === true) {
       var lastVal = arr[arr.length - 1];
       var temp = event.x;

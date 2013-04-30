@@ -19,6 +19,7 @@
     <audio class='waves' src='/waves.ogg' loop >
       <p>Your browser does not support the audio element.</p>
     </audio>
+
     {{> footer}}
   </div>
 
@@ -69,5 +70,10 @@
   <div id="footer">
     <input class='waveButton' type='checkbox' >Hear the waves</input> | 
     <input class='reminder' type='checkbox' checked='true' >Remind me to mediate every couple of hours</input>
+    <select class='difficulty'>
+      <option value="6">Novice</option>
+      <option value="4">Monk</option>
+      <option value="2">Zen Master</option>
+    </select>
   </div>
 </template>
